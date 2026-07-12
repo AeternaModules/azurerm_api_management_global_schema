@@ -1,3 +1,7 @@
+output "api_management_global_schemas_id" {
+  description = "Map of id values across all api_management_global_schemas, keyed the same as var.api_management_global_schemas"
+  value       = { for k, v in azurerm_api_management_global_schema.api_management_global_schemas : k => v.id }
+}
 output "api_management_global_schemas_api_management_name" {
   description = "Map of api_management_name values across all api_management_global_schemas, keyed the same as var.api_management_global_schemas"
   value       = { for k, v in azurerm_api_management_global_schema.api_management_global_schemas : k => v.api_management_name }
