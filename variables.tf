@@ -19,22 +19,6 @@ EOT
     value               = string
     description         = optional(string)
   }))
-  validation {
-    condition = alltrue([
-      for k, v in var.api_management_global_schemas : (
-        length(v.value) > 0
-      )
-    ])
-    error_message = "must not be empty"
-  }
-  validation {
-    condition = alltrue([
-      for k, v in var.api_management_global_schemas : (
-        v.description == null || (length(v.description) > 0)
-      )
-    ])
-    error_message = "must not be empty"
-  }
   # --- Unconfirmed validation candidates, derived from azurerm_api_management_global_schema's provider source ---
   # Not auto-enabled: either a bespoke provider validator we can't safely translate,
   # or a path that crosses a list-typed block (needs its own for_each wrapping).
@@ -59,5 +43,11 @@ EOT
   #   source:    [from resourcegroups.ValidateName] !matched
   # path: type
   #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
+  # path: value
+  #   condition: length(value) > 0
+  #   message:   must not be empty
+  # path: description
+  #   condition: length(value) > 0
+  #   message:   must not be empty
 }
 
